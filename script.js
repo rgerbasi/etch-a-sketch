@@ -2,32 +2,46 @@
 console.log("test");
 
 //create 16x16 grid of square divs
-const container = document.querySelector("div.container");
 
-//vertical flex container to stack rows
-for (let i = 0; i < 16; i++){
-    //row
-    let row = document.createElement("div");
-    row.classList.add("row");
-    for (let i = 0; i < 16; i++){
-        let col = document.createElement("div");
-        col.classList.add("square");
-        col.addEventListener("mouseenter", mouseInSquare) // mouse in square
-        row.appendChild(col);
+//selectors
+const container = document.querySelector("div.container");
+let test = document.querySelector(".square")
+
+createGrid(16);
+
+//Functions
+function createGrid(num) {
+    //vertical flex container to stack rows
+    for (let i = 0; i < num; i++){
+        let row = document.createElement("div");
+        row.classList.add("row");
+        for (let i = 0; i < num; i++){
+            let col = document.createElement("div");
+            col.classList.add("square");
+            col.addEventListener("mouseenter", handleMouseEntersGrid) // mouse enter square listener
+            row.appendChild(col); //add square
+        }
+        container.appendChild(row);
     }
-    container.appendChild(row);
+}
+function handleMouseEntersGrid(e) {
+    //console.log(this.style);
+    const square = this;
+    this.style["background-color"] = "black";
+}
+function clearGrid(){
+    let listOfNodes = document.querySelectorAll(".container > *");
+    console.log(listOfNodes);
+    listOfNodes.forEach((node) => {
+        container.removeChild(node);
+    });
 }
 
+//Event Listeners
 container.addEventListener("click", (e) => {
     console.log(e.target.classList.value);
 });
-let test = document.querySelector(".square")
-function mouseInSquare(e) {
-    console.log(this.style)
-    const square = this
-    this.style["background-color"] = "black"
 
-}
 //best practice is to add mousemove when you need and remove when you dont need it
 //add mousemove event to mouseenter event and remove on mouse leave
 
