@@ -23,14 +23,15 @@ body {
 }
 
 .row {
-    flex: 1 1 auto;
+    flex: 1 0 0;
     display: flex;
 }
 
 .square {
     /* margin just for debugging each square*/
-    margin: 5px;
-    flex: 1 1 auto;
-   background-color: blue;
+    /* margin: 5px; */
+    flex: 1 0 auto;
+    opacity: 0;
+   /* background-color: blue; */
 }
 

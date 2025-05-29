@@ -1,5 +1,5 @@
 // Javascript
-console.log("test");
+
 
 //create 16x16 grid of square divs
 
@@ -7,9 +7,20 @@ console.log("test");
 const container = document.querySelector("div.container");
 let test = document.querySelector(".square")
 
-createGrid(16);
+
+
+createGrid(64);
 
 //Functions
+function randomColor(){
+    let r = Math.floor(Math.random() * 255).toString(16);
+    let g = Math.floor(Math.random() * 255).toString(16);
+    let b = Math.floor(Math.random() * 255).toString(16);
+    let hex = "#"+r+g+b;
+    console.log(hex)
+    return hex;
+}
+
 function createGrid(num) {
     //vertical flex container to stack rows
     for (let i = 0; i < num; i++){
@@ -27,7 +38,9 @@ function createGrid(num) {
 function handleMouseEntersGrid(e) {
     //console.log(this.style);
     const square = this;
-    this.style["background-color"] = "black";
+    this.style["background-color"] = randomColor();
+    // console.log( this.style["opacity"] )
+    this.style["opacity"] = +this.style["opacity"] + 0.1 // had to convert to number from string
 }
 function clearGrid(){
     let listOfNodes = document.querySelectorAll(".container > *");
