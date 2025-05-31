@@ -1,37 +1,130 @@
 /* css */
-
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-
+* {
+    box-sizing: border-box;
+    /* outline: 1px solid red; */
+}
 body,html {
 font-family: Ubuntu, sans-serif;
   margin: 0;
   padding: 0;
- 
+  height: 100%;
 }
 body {
-    max-height: 100vh;
     display: flex;
-    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    min-height: 300px;
+}
+#etch-a-sketch{
+    height: 95vmin;
+    width: 90vmin;
+    
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    background-color: rgb(217, 65, 65);
+    border-radius: 5%;
+    box-shadow:  
+        15px 15px rgb(132, 2, 2),
+        -15px 15px rgb(132, 2, 2)
+        ;
+}
+/* If only two values are given, they are interpreted as <offset-x> and <offset-y> values.
+If a third value is given, it is interpreted as a <blur-radius>.
+If a fourth value is given, it is interpreted as a <spread-radius>. */
+/* vertical flex item */
+h1 { 
+   flex: 0 0 5%;
+    margin: 0;
+    color: white;
+    text-shadow: 0 2px 0 grey;
+}
+.screen {
+    aspect-ratio: 1;
+    flex: 1 1 auto;
+    background-color: white;
+    border-radius: 5%;
+    overflow: hidden;
+    margin: 0 auto;
+   
+    box-shadow: 
+        inset 5px 0 grey,
+        inset -5px 0 grey,
+        inset 0 5px grey,
+        inset 0 -5px grey
+        ;
+        
+}
+.bottom-container {
+    /* flex item properties */
+    flex: 0 0 10%;
+    align-self: stretch;
+    /* container */
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
 }
-
+/* in screen */
 .container {
-    aspect-ratio: 1;
-    flex: 0 1 75vw;
+    height: 100%;
     display: flex;
     flex-flow: column nowrap;
 }
-
 .row {
-    flex: 1 0 0;
+    flex: 1;
     display: flex;
 }
-
 .square {
-    /* margin just for debugging each square*/
-    /* margin: 5px; */
-    flex: 1 0 auto;
+    flex: 1;
     opacity: 0;
-   /* background-color: blue; */
 }
-
+/* in bottom container */
+input, button {
+    margin: 0;
+    padding: 0;
+    border-radius: 10%;
+    
+}
+#new-grid{
+    flex: 0 0 15%;
+    height: 50%;
+    font-weight: 400;
+}
+.input-label-container {
+    /* flex item properties */
+    height: 100%;
+    flex: 0 1 15%;
+    /* container */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    
+}
+button, #color {
+    box-shadow:  0 0.2rem 0 0.1rem grey;
+}
+input {
+    flex: 0 0 50%;
+}
+label {
+    flex: 0 1 auto;
+    color: white;
+    font-weight: 500;
+    text-shadow: 0 2px 0 grey;
+}
+#random{
+    /* flex: 0 0 50%; */
+    /* width: 25%; */
+    transform: scale(1.5);
+}
+.knob {
+    background-color: rgb(239, 239, 239);
+    flex: 0 0 8%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    box-shadow:  0 0.2rem 0 0.3rem grey;
+}

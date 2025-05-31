@@ -7,10 +7,26 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <h1>Etch-a-Sketch</h1>
-    
-    <div class="container"></div>
+    <div id="etch-a-sketch">
+        <h1>Etch-a-Sketch</h1>
+        <div class="screen">
+            <div class="container"></div>
+        </div>
 
+        <div class="bottom-container">
+        <div class="knob left"></div>
+        <button id="new-grid">New Grid</button>
+        <div class="input-label-container">
+            <input id="color" type="color">
+            <label for="color">Color</label>
+        </div>
+        <div class="input-label-container">
+            <input id="random" type="checkbox">
+            <label for="random">Random Color</label>
+        </div>
+        <div class="knob right"></div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

@@ -2,14 +2,16 @@
 
 
 //create 16x16 grid of square divs
-
 //selectors
 const container = document.querySelector("div.container");
-let test = document.querySelector(".square")
+let test = document.querySelector(".square");
 
+const newGridButton = document.querySelector("#new-grid");
+const colorSelector = document.querySelector("#color");
+let color = colorSelector.value;
+const randomToggle = document.querySelector("#random");
+let isRandom = randomToggle.checked;
 
-
-createGrid(64);
 
 //Functions
 function randomColor(){
@@ -17,7 +19,6 @@ function randomColor(){
     let g = Math.floor(Math.random() * 255).toString(16);
     let b = Math.floor(Math.random() * 255).toString(16);
     let hex = "#"+r+g+b;
-    console.log(hex)
     return hex;
 }
 
@@ -38,7 +39,7 @@ function createGrid(num) {
 function handleMouseEntersGrid(e) {
     //console.log(this.style);
     const square = this;
-    this.style["background-color"] = randomColor();
+    this.style["background-color"] = (isRandom ? randomColor() : color); //if random not checked use color picker color
     // console.log( this.style["opacity"] )
     this.style["opacity"] = +this.style["opacity"] + 0.1 // had to convert to number from string
 }
@@ -54,25 +55,14 @@ function clearGrid(){
 container.addEventListener("click", (e) => {
     console.log(e.target.classList.value);
 });
+colorSelector.addEventListener("input", (e) => {
+    color = e.target.value;
+    console.log(color)
+})
+randomToggle.addEventListener("input", (e) => {
+    isRandom = e.target.checked
+    console.log(isRandom)
+})
 
-//best practice is to add mousemove when you need and remove when you dont need it
-//add mousemove event to mouseenter event and remove on mouse leave
-
-//event.target.classList is DOMTokenList = class of is in .value
-// container.removeEventListener()
-
-//not what im going for i think
-// function handleMouseMove(e) {
-//     console.log(e.target);
-//     if (e.target.classList.value === "square"){
-//         console.log("YEE")
-//     }
-// }
-// //on mouse enter add mousemove listener 
-// container.addEventListener("mouseenter", (e) => {
-//     container.addEventListener("mousemove", handleMouseMove);
-// });
-// //on mouse leave remove mousemove listener
-// container.addEventListener("mouseleave", (e) => {
-//     container.removeEventListener("mousemove", handleMouseMove);
-// })
+// run code
+createGrid(16);
