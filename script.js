@@ -38,10 +38,11 @@ function createGrid(num) {
 }
 function handleMouseEntersGrid(e) {
     //console.log(this.style);
-    const square = this;
-    this.style["background-color"] = (isRandom ? randomColor() : color); //if random not checked use color picker color
+    let newColor = (isRandom ? randomColor() : color) 
+    this.style["background-color"] = newColor; //if random not checked use color picker color
     // console.log( this.style["opacity"] )
-    this.style["opacity"] = +this.style["opacity"] + 0.1 // had to convert to number from string
+    let newOpacity = (newColor === "#ffffff" ? 0 :(+this.style["opacity"] + 0.1) )
+    this.style["opacity"] = newOpacity // had to convert to number from string
 }
 function clearGrid(){
     let listOfNodes = document.querySelectorAll(".container > *");
@@ -50,10 +51,25 @@ function clearGrid(){
         container.removeChild(node);
     });
 }
-
+function isInputValid(input) {
+    let num = Number(input);
+    if ( Number.isInteger(num) && num >= 1 && num <= 128 ){
+        return true;
+    }
+    return false;
+}
 //Event Listeners
-container.addEventListener("click", (e) => {
-    console.log(e.target.classList.value);
+newGridButton.addEventListener("click", (e) => {
+    console.log(e.target);
+    let squares = Number(prompt("How many squares in the grid?")) 
+    //input validation
+    if (!isInputValid(squares)) {
+        alert("Please Enter a whole number between 1 and 128.");
+        return;
+    }
+    // squares = prompt("How many squares in the grid?")
+    clearGrid();
+    createGrid(squares)
 });
 colorSelector.addEventListener("input", (e) => {
     color = e.target.value;

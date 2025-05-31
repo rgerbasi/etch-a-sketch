@@ -82,11 +82,12 @@ h1 {
     opacity: 0;
 }
 /* in bottom container */
-input, button {
+input, button { 
+/* 3 inpuuts in bottom */
     margin: 0;
     padding: 0;
     border-radius: 10%;
-    
+    cursor: pointer;
 }
 #new-grid{
     flex: 0 0 15%;
@@ -105,7 +106,14 @@ input, button {
     
 }
 button, #color {
-    box-shadow:  0 0.2rem 0 0.1rem grey;
+    /* color and button */
+    box-shadow:  0 0.2rem 0 0.1rem rgb(207, 207, 207);
+}
+button:hover, 
+#color:hover{
+    /* background-color: rgb(88, 88, 88); */
+    transform: scale(1.05);
+    transition:all 0.2s;
 }
 input {
     flex: 0 0 50%;
@@ -117,9 +125,11 @@ label {
     text-shadow: 0 2px 0 grey;
 }
 #random{
-    /* flex: 0 0 50%; */
-    /* width: 25%; */
     transform: scale(1.5);
+}
+#random:hover{
+    transform: scale(2);
+    transition: all 0.2s;
 }
 .knob {
     background-color: rgb(239, 239, 239);
