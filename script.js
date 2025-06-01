@@ -21,8 +21,19 @@ function randomColor(){
     let hex = "#"+r+g+b;
     return hex;
 }
-
-function createGrid(num) {
+function createGrid(num){
+     for (let i = 0; i < num; i++){
+        let row = document.createElement("div");
+        row.classList.add("row");
+        for (let i = 0; i < num; i++){
+            let col = document.createElement("div");
+            col.classList.add("square");
+            row.appendChild(col); //add square
+        }
+        container.appendChild(row);
+    }
+}
+function createGridwithMouseEnterEvent(num) {
     //vertical flex container to stack rows
     for (let i = 0; i < num; i++){
         let row = document.createElement("div");
@@ -37,16 +48,15 @@ function createGrid(num) {
     }
 }
 function handleMouseEntersGrid(e) {
-    //console.log(this.style);
+
     let newColor = (isRandom ? randomColor() : color) 
     this.style["background-color"] = newColor; //if random not checked use color picker color
-    // console.log( this.style["opacity"] )
     let newOpacity = (newColor === "#ffffff" ? 0 :(+this.style["opacity"] + 0.1) )
     this.style["opacity"] = newOpacity // had to convert to number from string
 }
 function clearGrid(){
     let listOfNodes = document.querySelectorAll(".container > *");
-    console.log(listOfNodes);
+  
     listOfNodes.forEach((node) => {
         container.removeChild(node);
     });
@@ -60,7 +70,7 @@ function isInputValid(input) {
 }
 //Event Listeners
 newGridButton.addEventListener("click", (e) => {
-    console.log(e.target);
+    
     let squares = Number(prompt("How many squares in the grid?")) 
     //input validation
     if (!isInputValid(squares)) {
@@ -73,12 +83,58 @@ newGridButton.addEventListener("click", (e) => {
 });
 colorSelector.addEventListener("input", (e) => {
     color = e.target.value;
-    console.log(color)
+   
 })
 randomToggle.addEventListener("input", (e) => {
     isRandom = e.target.checked
-    console.log(isRandom)
+  
 })
+function addColor(item){
+    let newColor = (isRandom ? randomColor() : color) 
+    item.style["background-color"] = newColor; //if random not checked use color picker color
+    item.style["opacity"] = +item.style["opacity"] + 0.1 // had to convert to number from string
+}
+function eraseColor(item){ 
+    item.style["opacity"] = 0
+}
+let isDrawing = false;
+let mode = "draw";
+function setUpClickAndDrag() {
+    //need mousedown listener, mouseover, mouseup
+    container.addEventListener("contextmenu", e => e.preventDefault()); //prevent rightclick menu in container
+    container.addEventListener("dragstart", e => e.preventDefault()); //prevent draggable for smooth drawing
+
+    container.addEventListener("mousedown", (e) => {
+   
+        if (!e.target.classList.contains("square")) return;
+        isDrawing = true
+        if (e.button === 0){
+            //left click
+            mode = "draw";
+            addColor(e.target)
+        } else if (e.button === 2) {
+            //right click
+            mode = "erase";
+            eraseColor(e.target)
+        }
+    });
+    container.addEventListener("mouseover", (e) => {
+
+        if (!e.target.classList.contains("square")) return;
+       
+        if (isDrawing && mode === "draw") {
+            addColor(e.target)
+        } else if (isDrawing && mode === "erase"){
+            eraseColor(e.target)
+        }
+    });
+
+    container.addEventListener("mouseup", (e) =>{
+        isDrawing = false
+    });
+
+}
 
 // run code
 createGrid(16);
+setUpClickAndDrag();
